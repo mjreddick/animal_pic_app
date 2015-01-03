@@ -38,3 +38,7 @@ gem 'spring',        group: :development
 
 #mongoid
 gem 'mongoid', '~>4.0.0'
+
+#bootstrap
+gem 'bootstrap-sass', '~> 3.3.1'
+gem 'autoprefixer-rails'
