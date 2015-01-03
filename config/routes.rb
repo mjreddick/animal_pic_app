@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
   root "users#index"
 
+  resources :pictures
   resources :users
 
 
