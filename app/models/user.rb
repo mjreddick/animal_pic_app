@@ -2,6 +2,7 @@ class User
   include Mongoid::Document
 
   attr_reader :password
+  # attr_accessor :password_confirmation
 
   # field :active?, type: Boolean
   field :username, type: String
@@ -14,7 +15,7 @@ class User
   validates :username, presence: true, uniqueness: {case_sensitive: false}, length: {in: 1..20}
   validates :pet_name, presence: true
   validates :email, presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }
-  validates :password, presence: true, length: {in: 5..50}
+  validates :password, presence: true, length: {in: 5..50}, confirmation: true
 
   def password=(new_password)
   	@password = new_password
