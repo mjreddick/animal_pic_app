@@ -9,6 +9,8 @@ class User
   field :email, type: String
   field :password_digest, type: String
 
+  has_many :pictures
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   validates :username, presence: true, uniqueness: {case_sensitive: false}, length: {in: 1..20}

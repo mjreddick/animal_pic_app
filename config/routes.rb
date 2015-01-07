@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'signup' => 'users#new', as: :new_user 
   resources :pictures
   resources :users, except: [:new]
-  get 'login' => 'sessions#new'
+  get 'login' => 'sessions#new', as: :new_session
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
 

@@ -8,15 +8,25 @@ class PicturesController < ApplicationController
 	end
 
 	def new
-		@picture = Picture.new
+		if logged_in?
+			@picture = Picture.new
+			render :new
+		else
+			redirect_to new_session_path
+		end
 	end
 
 	def create
-		@picture = Picture.new(picture_params)
-		if @picture.save
-			redirect_to pictures_path
+		if logged_in?
+			@picture = current_user.pictures.new(picture_params)			
+			if @picture.save
+				redirect_to pictures_path
+			else
+				render :new
+			end
 		else
-			render :new
+			flash[:error] = "Must be logged in to post"
+			redirect_to new_session_path
 		end
 	end
 

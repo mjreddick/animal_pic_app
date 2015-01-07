@@ -4,4 +4,7 @@ class Picture
   field :title, type: String
   field :caption, type: String
   field :category, type: String
+
+  belongs_to :user
+  
 end
