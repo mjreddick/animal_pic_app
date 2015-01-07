@@ -1,9 +1,17 @@
 <h1>Add a new picture!</h1>
 
-<%= simple_form_for @picture do |f| %>
-	<%= f.input :url %>
-	<%= f.input :title %>
-	<%= f.input :caption %>
-	<%= f.input :category %>
-	<%= f.submit 'Add picture' %>
+<%= form_for @picture do |f| %>
+	<div>
+		<%= f.label :title, "Title" %>
+		<%= f.text_field :title %>
+	</div>
+	<div>
+		<%= f.label :image, "Picture" %>
+		<%= f.file_field :image %>
+	</div>
+	<div>
+		<%= f.label :caption, "Caption" %>
+		<%= f.text_field :caption %>
+	</div>
+	<%= f.submit "Submit Photo" %>
 <% end %>

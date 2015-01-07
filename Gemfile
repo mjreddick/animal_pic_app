@@ -46,3 +46,9 @@ gem 'autoprefixer-rails'
 
 gem 'simple_form'
 
+#carrierwave gems
+gem 'carrierwave'
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+
+gem 'fog' 				# required for Amazon S3
+gem 'mini_magick' # for post-upload image processing
