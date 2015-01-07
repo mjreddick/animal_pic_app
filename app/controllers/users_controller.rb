@@ -16,6 +16,7 @@ class UsersController < ApplicationController
 		@user = User.new(user_params)
 		#add password here
 		if @user.save
+			log_in @user
 			redirect_to user_path(@user)
 		else
 			render :new
