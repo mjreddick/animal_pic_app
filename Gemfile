@@ -41,7 +41,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'mongoid', '~>4.0.0'
 
 #bootstrap
-gem 'bootstrap-sass', '~> 3.3.1'
+gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 
 gem 'simple_form'
