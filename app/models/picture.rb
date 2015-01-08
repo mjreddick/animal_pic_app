@@ -1,6 +1,7 @@
 class Picture
   include Mongoid::Document
-  # field :url, type: String
+  include Mongoid::Timestamps
+
   field :title, type: String
   field :caption, type: String
   field :category, type: String
@@ -11,6 +12,10 @@ class Picture
 
   def url
   	self.image.url
+  end
+
+  def posted_at
+    created_at.localtime.strftime("%B %-d, %Y at %l:%M %p")
   end
   
 end

@@ -1,6 +1,8 @@
 <h1><%= @picture.title %></h1>
 <h5>
 	<%= link_to @picture.user.username, user_path(@picture.user) %>
+	&middot;
+	<%= @picture.posted_at %>
 </h5>
 <%=image_tag(@picture.url)%>
 <p><%= @picture.caption %></p>
