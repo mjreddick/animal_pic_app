@@ -1,15 +1,15 @@
 <h1>All Pictures</h1>
 
-<ul>
+<div class="row">
 	
 	<% @pictures.each do |picture| %>
 
-		<li>
-			<%= link_to image_tag(picture.image.url(:thumb), size: "100x100"), picture_path(picture) %>
-		</li>
+		<div class="col-lg-3 col-sm-4 col-xs-6 text-center">
+			<%= link_to image_tag(picture.image.url(:thumb), size: "160x160"), picture_path(picture) %>
+		</div>
 
 	<% end %>
 
-</ul>
+</div>
 
 <%= link_to "new_picture", new_picture_path %>
