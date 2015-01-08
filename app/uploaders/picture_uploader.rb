@@ -25,16 +25,40 @@ class PictureUploader < CarrierWave::Uploader::Base
   # end
 
   # Process files as they are uploaded:
-  process :scale => [700, 500]
+  # process :resize_to_fit=> [700, nil]
+  process :shrink_to_width => [700]
   #
   # def scale(width, height)
-  #   # do something
+  #   resize width
   # end
 
+  def shrink_to_width(width)
+    manipulate! do |img|
+      img.resize ">#{width}"
+      img
+    end
+  end
+
   # Create different versions of your uploaded files:
-  # version :thumb do
-  #   process :resize_to_fit => [50, 50]
-  # end
+  version :thumb do
+    process :make_square => [160]
+  end
+
+  def make_square(size)
+    #This resizes and crops the image to make it a square while maintaining aspect ratio
+    manipulate! do |img|
+      img.resize "#{size}x#{size}^"
+      if img.width > img.height
+        overflow = (img.width - size) / 2
+        img.crop "#{size}x#{size}+#{overflow}+0"
+      else
+        overflow = (img.height - size) / 2
+        img.crop "#{size}x#{size}+0+#{overflow}"
+      end
+
+      img
+    end
+  end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:

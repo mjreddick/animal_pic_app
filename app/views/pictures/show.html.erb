@@ -1,4 +1,7 @@
 <h1><%= @picture.title %></h1>
+<h5>
+	<%= link_to @picture.user.username, user_path(@picture.user) %>
+</h5>
 <%=image_tag(@picture.url)%>
 <p><%= @picture.caption %></p>
 <%= link_to "edit", edit_picture_path(@picture) %>
