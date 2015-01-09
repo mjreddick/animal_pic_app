@@ -2,7 +2,13 @@ Rails.application.routes.draw do
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-  root "pictures#index"
+  root "pictures#index", :defaults => { :type => 'all', :sort => 'newest' }
+  get "/all/newest" => 'pictures#index', :defaults => { :type => 'all', :sort => 'newest' }
+  get "/all/top" => 'pictures#index', :defaults => { :type => 'all', :sort => 'top' }
+  get "/friends/newest" => 'pictures#index', :defaults => { :type => 'friends', :sort => 'newest' }
+  get "/friends/top" => 'pictures#index', :defaults => { :type => 'friends', :sort => 'top' }
+  get "/fiends/newest" => 'pictures#index', :defaults => { :type => 'fiends', :sort => 'newest' }
+  get "/fiends/top" => 'pictures#index', :defaults => { :type => 'fiends', :sort => 'top' }
   get 'signup' => 'users#new', as: :new_user 
   resources :pictures
   resources :users, except: [:new]
