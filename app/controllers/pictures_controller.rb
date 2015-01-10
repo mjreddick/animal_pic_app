@@ -1,4 +1,6 @@
 class PicturesController < ApplicationController
+	before_action :require_correct_user, only: [:edit, :update, :destroy]
+
 	def index
 		#Find the correct type of pictures
 		@pictures = Picture.where(is_active: true)
@@ -27,7 +29,7 @@ class PicturesController < ApplicationController
 	end
 
 	def show
-		@picture = Picture.find(params[:id])
+		current_picture
 	end
 
 	def new
@@ -54,12 +56,11 @@ class PicturesController < ApplicationController
 	end
 
 	def edit
-		@picture = Picture.find(params[:id])		
+		current_picture		
 	end
 
 	def update
-		@picture = Picture.find(params[:id])
-		if @picture.update_attributes(picture_params)
+		if current_picture.update_attributes(picture_params)
 			redirect_to pictures_path
 		else
 			render :edit
@@ -67,14 +68,24 @@ class PicturesController < ApplicationController
 	end
 
 	def destroy
-		@picture = Picture.find(params[:id])
-		@picture.destroy
+		current_picture.destroy
 		redirect_to pictures_path
 	end
 
 	private
 
-	def picture_params
-		params.require(:picture).permit(:title, :caption, :category, :image)
-	end
+		def current_picture
+			@picture ||= Picture.find(params[:id])
+		end
+
+		def picture_params
+			params.require(:picture).permit(:title, :caption, :category, :image)
+		end
+
+		def require_correct_user
+			unless logged_in_as(current_picture.user.id)
+				flash[:error] = "You must be logged in to complete that action"
+				redirect_to :login and return
+			end
+		end
 end

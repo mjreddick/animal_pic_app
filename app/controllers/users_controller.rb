@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+	before_action :require_correct_user, only: [:edit, :update, :destroy]
 
 	def index
 		@users = User.all
@@ -14,7 +15,6 @@ class UsersController < ApplicationController
 
 	def create
 		@user = User.new(user_params)
-		#add password here
 		if @user.save
 			log_in @user
 			redirect_to user_path(@user)
@@ -24,12 +24,11 @@ class UsersController < ApplicationController
 	end
 
 	def edit
-		@user = User.find(params[:id])		
+		viewed_user		
 	end
 
 	def update
-		@user = User.find(params[:id])
-		if @user.update_attributes(user_params)
+		if viewed_user.update_attributes(user_params)
 			redirect_to users_path
 		else
 			render :edit
@@ -37,8 +36,7 @@ class UsersController < ApplicationController
 	end
 
 	def destroy
-		@user = User.find(params[:id])
-		@user.destroy
+		viewed_user.destroy
 		redirect_to users_path
 	end
 
@@ -46,6 +44,17 @@ class UsersController < ApplicationController
 
 		def user_params
 			params.require(:user).permit(:username, :pet_name, :email, :password, :password_confirmation)
+		end
+
+		def viewed_user
+			@user = User.find(params[:id])
+		end
+
+		def require_correct_user
+			unless logged_in_as(params[:id])
+				flash[:error] = "You must be logged in to complete that action"
+				redirect_to :login and return
+			end
 		end
 
 end
