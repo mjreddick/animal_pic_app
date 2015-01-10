@@ -1,6 +1,29 @@
 class PicturesController < ApplicationController
 	def index
-		@pictures = Picture.all
+		#Find the correct type of pictures
+		@pictures = Picture.where(is_active: true)
+		case params[:type]
+		when "all"
+		when "friends"
+			@pictures = @pictures.where(is_friend: true)
+		when "fiends"
+			@pictures = @pictures.where(is_friend: false)
+		else
+			redirect_to :root and return
+		end
+
+		#Sort those pictures
+		case params[:sort]
+		when "newest"
+			@pictures = @pictures.desc(:created_at)
+		when "top"
+			@pictures = @pictures.desc(:total_votes)
+		else 
+			redirect_to :root and return
+		end
+
+		#Only look at the first several results
+		@pictures = @pictures.limit(20)
 	end
 
 	def show
