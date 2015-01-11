@@ -12,11 +12,11 @@
 <% end %>
 
 <%= form_for(:vote, method: :patch, url: picture_vote_path({vote_type: "friend"})) do |f|%>
-	<%= f.submit "Friend" %>
+	<%= f.submit "Friend", disabled: !logged_in? || @picture.voted_friend?(current_user) %>
 <% end %>
 
 <%= form_for(:vote, method: :patch, url: picture_vote_path({vote_type: "fiend"})) do |f|%>
-	<%= f.submit "Fiend" %>
+	<%= f.submit "Fiend", disabled: !logged_in? || @picture.voted_fiend?(current_user) %>
 <% end %>
 
 
