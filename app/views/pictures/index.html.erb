@@ -27,10 +27,10 @@
 
 <div class="row">
 	
-	<% @pictures.each do |picture| %>
+	<% @pictures.each_with_index do |picture, index| %>
 
 		<div class="col-lg-3 col-sm-4 col-xs-6 text-center">
-			<%= link_to image_tag(picture.image.url(:thumb), size: "160x160"), picture_path(picture) %>
+			<%= link_to image_tag(picture.image.url(:thumb), size: "160x160"), picture_path(picture, {type: params[:type], sort: params[:sort], index: index}) %>
 		</div>
 
 	<% end %>

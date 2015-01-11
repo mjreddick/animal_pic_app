@@ -1,3 +1,8 @@
+
+<h2><%= params %></h2>
+
+<p><%= cookies[:results]  %></p>
+
 <h1><%= @picture.title %></h1>
 <h5>
 	<%= link_to @picture.user.username, user_path(@picture.user) %>
@@ -10,6 +15,11 @@
 <% if @picture.caption.present? %>
 	<p><%= @picture.caption %></p>
 <% end %>
+
+<%= link_to "Prev", picture_path(@prev_picture, {type: params[:type], sort: params[:sort], index: @prev_index}) %>
+
+<%= link_to "Next", picture_path(@next_picture, {type: params[:type], sort: params[:sort], index: @next_index}) %>
+
 
 <%= form_for(:vote, method: :patch, url: picture_vote_path({vote_type: "friend"})) do |f|%>
 	<%= f.submit "Friend", disabled: !logged_in? || @picture.voted_friend?(current_user) %>

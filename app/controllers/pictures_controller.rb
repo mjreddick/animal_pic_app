@@ -4,32 +4,101 @@ class PicturesController < ApplicationController
 	def index
 		#Find the correct type of pictures
 		@pictures = Picture.where(is_active: true)
-		case params[:type]
-		when "all"
-		when "friends"
-			@pictures = @pictures.where(is_friend: true)
-		when "fiends"
-			@pictures = @pictures.where(is_friend: false)
-		else
-			redirect_to :root and return
-		end
+		# case params[:type]
+		# when "all"
+		# when "friends"
+		# 	@pictures = @pictures.where(is_friend: true)
+		# when "fiends"
+		# 	@pictures = @pictures.where(is_friend: false)
+		# else
+		# 	redirect_to :root and return
+		# end
 
-		#Sort those pictures
-		case params[:sort]
-		when "newest"
-			@pictures = @pictures.desc(:created_at)
-		when "top"
-			@pictures = @pictures.desc(:total_votes)
-		else 
-			redirect_to :root and return
-		end
+		# #Sort those pictures
+		# case params[:sort]
+		# when "newest"
+		# 	@pictures = @pictures.desc(:created_at, :id)
+		# when "top"
+		# 	@pictures = @pictures.desc(:total_votes, :id)
+		# else 
+		# 	redirect_to :root and return
+		# end
+
+		get_pictures
 
 		#Only look at the first several results
 		@pictures = @pictures.limit(20)
+
+		results = []
+		@pictures.each do |pic|
+			results << pic.id.to_s
+		end
+		cookies[:results] = JSON.generate(results)
 	end
 
 	def show
-		current_picture
+		# @type = params[:type] || "all"
+		# @sort = params[:sort] || "newest"
+		# @state = params[:state] || "current"
+		# @skip_num = params[:skip_num] || "1"
+		# @skip_num = @skip_num.to_i
+		# @picture = current_picture
+		
+		# case @state
+		# when "current"
+		# 	render :show and return
+		# when "next"
+
+		# when "prev"
+
+		# else
+		# 	redirect_to :root and return
+		# end
+
+		# @pictures = Picture.where(is_active: true)
+
+		# case @type
+		# when "all"
+		# when "friends"
+		# 	@pictures = @pictures.where(is_friend: true)
+		# when "fiends"
+		# 	@pictures = @pictures.where(is_friend: false)
+		# else
+		# 	redirect_to :root and return
+		# end
+
+		# case @sort
+		# when "newest"
+		# 	@pictures.lte(created_at: @picture.created_at)
+		# 	@pictures = @pictures.desc(:created_at, :id)
+		# when "top"
+		# 	@pictures.lte(total_votes: @picture.total_votes)
+		# 	@pictures = @pictures.desc(:total_votes, :id)
+		# else
+		# 	redirect_to :root and return
+		# end
+
+		#########################
+		@picture = current_picture
+		results = JSON.parse(cookies[:results]) || []
+		index = params[:index].to_i || 0
+		
+		if index >= results.length - 1
+			@pictures = Picture.not_in(id: results).where(is_active: true)
+			get_pictures
+
+			@pictures.each do |pic|
+				results << pic.id.to_s
+			end
+
+			cookies[:results] = JSON.generate(results)
+		end
+		@prev_index = index == 0 ? 0 : index - 1
+		@next_index = index + 1
+		@prev_picture = Picture.find(results[@prev_index])
+		@next_picture = Picture.find(results[@next_index])
+
+
 	end
 
 	def new
@@ -100,5 +169,32 @@ class PicturesController < ApplicationController
 				flash[:error] = "You must be logged in to complete that action"
 				redirect_to :login and return
 			end
+		end
+
+		def get_pictures
+
+			case params[:type]
+			when "all"
+			when "friends"
+				@pictures = @pictures.where(is_friend: true)
+			when "fiends"
+				@pictures = @pictures.where(is_friend: false)
+			else
+				redirect_to :root and return
+			end
+
+			#Sort those pictures
+			case params[:sort]
+			when "newest"
+				@pictures = @pictures.desc(:created_at, :id)
+			when "top"
+				@pictures = @pictures.desc(:total_votes, :id)
+			else 
+				redirect_to :root and return
+			end
+
+			#Only look at the first several results
+			@pictures = @pictures.limit(20)
+			
 		end
 end
