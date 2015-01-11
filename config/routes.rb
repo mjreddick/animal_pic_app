@@ -9,9 +9,14 @@ Rails.application.routes.draw do
   get "/friends/top" => 'pictures#index', :defaults => { :type => 'friends', :sort => 'top' }
   get "/fiends/newest" => 'pictures#index', :defaults => { :type => 'fiends', :sort => 'newest' }
   get "/fiends/top" => 'pictures#index', :defaults => { :type => 'fiends', :sort => 'top' }
+  
   get 'signup' => 'users#new', as: :new_user 
+
+  patch '/pictures/:id/vote' => 'pictures#vote', as: :picture_vote
   resources :pictures
+  
   resources :users, except: [:new]
+  
   get 'login' => 'sessions#new', as: :new_session
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'

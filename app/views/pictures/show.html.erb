@@ -4,6 +4,20 @@
 	&middot;
 	<%= @picture.posted_at %>
 </h5>
+
 <%=image_tag(@picture.image.url)%>
-<p><%= @picture.caption %></p>
-<%= link_to "edit", edit_picture_path(@picture) %>
+
+<% if @picture.caption.present? %>
+	<p><%= @picture.caption %></p>
+<% end %>
+
+<%= form_for(:vote, method: :patch, url: picture_vote_path({vote_type: "friend"})) do |f|%>
+	<%= f.submit "Friend" %>
+<% end %>
+
+<%= form_for(:vote, method: :patch, url: picture_vote_path({vote_type: "fiend"})) do |f|%>
+	<%= f.submit "Fiend" %>
+<% end %>
+
+
+<%#= link_to "edit", edit_picture_path(@picture) if logged_in? %>

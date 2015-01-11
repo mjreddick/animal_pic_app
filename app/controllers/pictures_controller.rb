@@ -72,6 +72,19 @@ class PicturesController < ApplicationController
 		redirect_to pictures_path
 	end
 
+	def vote
+		case params[:vote_type]
+		when "friend"
+			current_picture.vote_friend(current_user)
+		when "fiend"
+			current_picture.vote_fiend(current_user)
+		else
+			render :show and return
+		end
+		current_picture.save
+		render :show and return
+	end
+
 	private
 
 		def current_picture
