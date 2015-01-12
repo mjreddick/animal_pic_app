@@ -21,11 +21,11 @@
 <%= link_to "Next", picture_path(@next_picture, {type: params[:type], sort: params[:sort], index: @next_index}) %>
 
 
-<%= form_for(:vote, method: :patch, url: picture_vote_path({vote_type: "friend"})) do |f|%>
+<%= form_for(:vote, method: :patch, url: picture_vote_path(params.merge({vote_type: "friend"}))) do |f|%>
 	<%= f.submit "Friend", disabled: !logged_in? || @picture.voted_friend?(current_user) %>
 <% end %>
 
-<%= form_for(:vote, method: :patch, url: picture_vote_path({vote_type: "fiend"})) do |f|%>
+<%= form_for(:vote, method: :patch, url: picture_vote_path(params.merge({vote_type: "fiend"}))) do |f|%>
 	<%= f.submit "Fiend", disabled: !logged_in? || @picture.voted_fiend?(current_user) %>
 <% end %>
 

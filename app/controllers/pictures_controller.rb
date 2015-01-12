@@ -48,7 +48,7 @@ class PicturesController < ApplicationController
 		if logged_in?
 			@picture = current_user.pictures.new(picture_params)			
 			if @picture.save
-				redirect_to pictures_path
+				redirect_to :root
 			else
 				render :new
 			end
@@ -64,7 +64,7 @@ class PicturesController < ApplicationController
 
 	def update
 		if current_picture.update_attributes(picture_params)
-			redirect_to pictures_path
+			redirect_to :root
 		else
 			render :edit
 		end
@@ -73,7 +73,7 @@ class PicturesController < ApplicationController
 	def destroy
 		current_picture.is_active = false
 		current_picture.save
-		redirect_to pictures_path
+		redirect_to :root
 	end
 
 	def vote
@@ -83,10 +83,10 @@ class PicturesController < ApplicationController
 		when "fiend"
 			current_picture.vote_fiend(current_user)
 		else
-			render :show and return
+			redirect_to picture_path(current_picture, {type: params[:type], sort: params[:sort], index: params[:index]}) and return
 		end
 		current_picture.save
-		render :show and return
+		redirect_to picture_path(current_picture, {type: params[:type], sort: params[:sort], index: params[:index]}) and return
 	end
 
 	private
@@ -130,7 +130,7 @@ class PicturesController < ApplicationController
 			end
 
 			#Only look at the first several results
-			pictures = pictures.limit(num_pics)
+			pictures = pictures.limit(num_pics) || []
 			
 		end
 end

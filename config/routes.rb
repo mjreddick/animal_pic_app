@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get 'signup' => 'users#new', as: :new_user 
 
   patch '/pictures/:id/vote' => 'pictures#vote', as: :picture_vote
-  resources :pictures
+  resources :pictures, except: [:index]
   
   resources :users, except: [:new, :index]
   
