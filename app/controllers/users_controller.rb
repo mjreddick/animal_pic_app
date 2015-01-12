@@ -1,10 +1,6 @@
 class UsersController < ApplicationController
 	before_action :require_correct_user, only: [:edit, :update, :destroy]
 
-	def index
-		@users = User.all
-	end
-
 	def show
 		@user = viewed_user
 	end
@@ -24,7 +20,7 @@ class UsersController < ApplicationController
 	end
 
 	def edit
-		viewed_user		
+		@user = viewed_user		
 	end
 
 	def update

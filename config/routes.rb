@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   patch '/pictures/:id/vote' => 'pictures#vote', as: :picture_vote
   resources :pictures
   
-  resources :users, except: [:new]
+  resources :users, except: [:new, :index]
   
   get 'login' => 'sessions#new', as: :new_session
   post 'login' => 'sessions#create'
