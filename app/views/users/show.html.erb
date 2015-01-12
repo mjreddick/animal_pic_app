@@ -1,14 +1,27 @@
-<h1><%= @user.username %></h1>
-<p>This is pet: <%= @user.pet_name %></p>
 
-<%= link_to "edit", edit_user_path(@user) %>
-<%= link_to "delete", :user, method: :delete, data: { confirm: "Are you sure you want to delete this user?" } %>
+<div class="row">
+	<div class="col-md-3 col-sm-12 text-center">
+		<!-- <div class="pet-pic"></div> -->
+		<%= image_tag @user.image.url, size: "200x200", class: "img-circle"%>
+		<h3><%= @user.pet_name %></h3>
+	</div>
+</div>
 
-<h2> Users Pictures </h2>
-<ul>
-	<% @user.pictures.each do |pic| %>
-		<li>
-			<%= link_to image_tag(pic.image.url(:thumb), size: "100x100"), picture_path(pic) %>
-		</li>
-	<% end %>
-</ul>
+
+<!-- <div class="container"> -->
+	<ul class="nav nav-tabs nav-justified">
+		<%=content_tag :li, link_to(image_tag("Halo.png", size: "20x20") + " Friend", user_path({type: "friends"})), class: @type== "friends" ? "active" : "" %>
+		<%=content_tag :li, link_to(image_tag("Devil_Horns.png", size: "20x20") + " Fiend", user_path({type: "fiends"})), class: @type== "fiends" ? "active" : "" %>
+
+	</ul>
+	<div class="container-fluid pic-container">
+		<% @pictures.each_with_index do |picture, index| %>
+			<div class="col-md-4 col-sm-6 text-center">
+				<%= link_to image_tag(picture.image.url(:thumb), size: "160x160", class: "pic-thumb"), picture_path(picture, {type: @type, sort: "newest", index: index, user_id: @user.id.to_s}) %>
+			</div>
+		<% end %>
+		
+	</div>
+<!-- </div> -->
+
+	  

@@ -1,9 +1,24 @@
 // app/assets/stylesheets/application.css.sass
-
+/*
+*= require_tree .
+*= require_self
+*/
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+body 
+{
+	background-color: lightgray;
+}
 
 #logo 
 {
 	padding: 3px 15px;
 }
+
+.pic-thumb 
+{
+	border: 5px solid gray;
+	border-radius: 5px;
+}
+

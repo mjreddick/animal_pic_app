@@ -1,11 +1,30 @@
 <h1>Add a new user!</h1>
 
-<%= simple_form_for @user do |f| %>
-	<%= f.input :username %>
-	<%= f.input :email %>
-	<%= f.input :pet_name %>
-	<%= f.input :password %>
-	<%= f.input :password_confirmation %>	
+<%= form_for @user do |f| %>
+	<div>
+		<%= f.label :username, "Username" %>
+		<%= f.text_field :username %>
+	</div>
+	<div>
+		<%= f.label :email, "email" %>
+		<%= f.text_field :email %>
+	</div>
+	<div>
+		<%= f.label :pet_name, "Pet Name" %>
+		<%= f.text_field :pet_name %>
+	</div>
+	<div>
+		<%= f.label :image, "Profile Picture" %>
+		<%= f.file_field :image %>
+	</div>
+	<div>
+		<%= f.label :password, "Password" %>
+		<%= f.password_field :password %>
+	</div>
+	<div>
+		<%= f.label :password_confirmation, "Confirm Password" %>
+		<%= f.password_field :password_confirmation %>	
+	</div>
 	<%= f.submit 'Create Account' %>
 <% end %>
 

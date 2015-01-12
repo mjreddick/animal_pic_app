@@ -3,6 +3,22 @@ class UsersController < ApplicationController
 
 	def show
 		@user = viewed_user
+		@type = params[:type] || "friends"
+		# pics = Picture.where(user_id: @user.id, is_active: true).desc(:created_at)
+		pics = @user.pictures.where(is_active: true).desc(:created_at)
+		friend_pics = pics.where(is_friend: true)
+		fiend_pics = pics.where(is_friend: false)
+		if @type == "friends"
+			@pictures = friend_pics
+		else
+			@pictures = fiend_pics
+		end
+		results = []
+		@pictures.each do |pic|
+			results << pic.id.to_s
+		end
+		cookies[:results] = JSON.generate(results)
+
 	end
 
 	def new
@@ -48,7 +64,7 @@ class UsersController < ApplicationController
 	private
 
 		def user_params
-			params.require(:user).permit(:username, :pet_name, :email, :password, :password_confirmation)
+			params.require(:user).permit(:username, :pet_name, :email, :password, :password_confirmation, :image)
 		end
 
 		def viewed_user

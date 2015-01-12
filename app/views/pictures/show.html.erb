@@ -16,9 +16,9 @@
 	<p><%= @picture.caption %></p>
 <% end %>
 
-<%= link_to "Prev", picture_path(@prev_picture, {type: params[:type], sort: params[:sort], index: @prev_index}) %>
+<%= link_to "Prev", picture_path(@prev_picture, {type: params[:type], sort: params[:sort], index: @prev_index, user_id: params[:user_id]}) %>
 
-<%= link_to "Next", picture_path(@next_picture, {type: params[:type], sort: params[:sort], index: @next_index}) %>
+<%= link_to "Next", picture_path(@next_picture, {type: params[:type], sort: params[:sort], index: @next_index, user_id: params[:user_id]}) %>
 
 
 <%= form_for(:vote, method: :patch, url: picture_vote_path(params.merge({vote_type: "friend"}))) do |f|%>

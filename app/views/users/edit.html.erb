@@ -4,8 +4,10 @@
 	<%= f.input :username %>
 	<%= f.input :email %>
 	<%= f.input :pet_name %>
-	<%= f.input :password %>
-	<%= f.input :password_confirmation %>	
+	<%#= f.input :password %>
+	<%#= f.input :password_confirmation %>	
 	<%= f.submit 'Edit Account' %>
 <% end %>
+
+<%= link_to "Delete This Account", :user, method: :delete, data: { confirm: "Are you sure you want to delete your account?" } %>
 

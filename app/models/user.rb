@@ -10,6 +10,8 @@ class User
   field :email, type: String
   field :password_digest, type: String
 
+  mount_uploader :image, AvatarUploader
+
   has_many :pictures
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

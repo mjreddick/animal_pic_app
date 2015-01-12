@@ -129,6 +129,8 @@ class PicturesController < ApplicationController
 				redirect_to :root and return
 			end
 
+			pictures = pictures.where(user_id: params[:user_id]) if params[:user_id]
+
 			#Only look at the first several results
 			pictures = pictures.limit(num_pics) || []
 			
