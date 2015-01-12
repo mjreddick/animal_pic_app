@@ -30,4 +30,6 @@
 <% end %>
 
 
-<%#= link_to "edit", edit_picture_path(@picture) if logged_in? %>
+<%= link_to "edit", edit_picture_path(@picture) if logged_in_as(@picture.user.id) %>
+
+<%= link_to "delete", :picture, method: :delete, data: { confirm: "Are you sure you want to delete this picture?" } if logged_in_as(@picture.user.id) %>

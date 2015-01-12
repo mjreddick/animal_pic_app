@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 	end
 
 	def show
-		@user = User.find(params[:id])
+		@user = viewed_user
 	end
 
 	def new
@@ -36,8 +36,17 @@ class UsersController < ApplicationController
 	end
 
 	def destroy
-		viewed_user.destroy
-		redirect_to users_path
+		#set all pictures for this users account to not be active
+		viewed_user.pictures.each do |pic|
+			pic.is_active = false
+			pic.save
+		end
+		#set this user to not be active
+		viewed_user.is_active = false
+		viewed_user.save
+		#log the user out
+		log_out
+		redirect_to :root
 	end
 
 	private
@@ -47,7 +56,7 @@ class UsersController < ApplicationController
 		end
 
 		def viewed_user
-			@user = User.find(params[:id])
+			@user ||= User.where(id: params[:id], is_active: true).first
 		end
 
 		def require_correct_user

@@ -4,7 +4,7 @@ class User
 
   attr_accessor :password
 
-  # field :active?, type: Boolean
+  field :is_active, type: Boolean, :default => true
   field :username, type: String
   field :pet_name, type: String
   field :email, type: String
@@ -23,11 +23,16 @@ class User
 
   before_save do
     self.username = username.downcase
+    self.email = email.downcase
     hash_password(self.password)
   end
 
   def authenticate(password_attempt)
   	BCrypt::Password.new(self.password_digest).is_password?(password_attempt) && self
+  end
+
+  def is_active?
+    is_active
   end
 
   private

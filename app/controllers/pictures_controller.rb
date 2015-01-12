@@ -59,7 +59,7 @@ class PicturesController < ApplicationController
 	end
 
 	def edit
-		current_picture		
+		@picture = current_picture		
 	end
 
 	def update
@@ -71,7 +71,8 @@ class PicturesController < ApplicationController
 	end
 
 	def destroy
-		current_picture.destroy
+		current_picture.is_active = false
+		current_picture.save
 		redirect_to pictures_path
 	end
 
@@ -91,7 +92,7 @@ class PicturesController < ApplicationController
 	private
 
 		def current_picture
-			@picture ||= Picture.find(params[:id])
+			@picture ||= Picture.where(id: params[:id], is_active: true).first
 		end
 
 		def picture_params

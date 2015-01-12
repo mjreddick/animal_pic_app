@@ -1,9 +1,8 @@
 <h1>Edit picture!</h1>
 
 <%= simple_form_for @picture do |f| %>
-	<%= f.input :url %>
 	<%= f.input :title %>
+	<%=image_tag(@picture.image.url)%>
 	<%= f.input :caption %>
-	<%= f.input :category %>
 	<%= f.submit 'Edit picture' %>
 <% end %>
