@@ -20,26 +20,25 @@
 </div>
 
 <div class="row">
-	<div class="col-xs-1 col-xs-offset-2">
-		<%= link_to "<", picture_path(@prev_picture, {type: params[:type], sort: params[:sort], index: @prev_index, user_id: params[:user_id]}), class: "btn btn-danger next-prev-btn" %>
+	<div class="col-xs-2 col-xs-offset-1">
+		<%= link_to "<", picture_path(@prev_picture, {type: params[:type], sort: params[:sort], index: @prev_index, user_id: params[:user_id]}), class: "btn btn-danger btn-block next-prev-btn" %>
 	</div>
 
 	
 
-	<div class="vote-container col-xs-6">
-		<div class="vote-btn">
-			<%= form_for(:vote, method: :patch, url: picture_vote_path(params.merge({vote_type: "friend"}))) do |f|%>
-				<%= f.submit "Friend", disabled: !logged_in? || @picture.voted_friend?(current_user), class: "vote-btn friend-vote" %>
-			<% end %>
-		</div>
-		<div class="vote-btn">
-			<%= form_for(:vote, method: :patch, url: picture_vote_path(params.merge({vote_type: "fiend"}))) do |f|%>
-				<%= f.submit "Fiend", disabled: !logged_in? || @picture.voted_fiend?(current_user), class: "vote-btn fiend-vote" %>
-			<% end %>
-		</div>
+	<div class="col-xs-3 vote-btn text-center">
+		<%= form_for(:vote, method: :patch, url: picture_vote_path(params.merge({vote_type: "friend"}))) do |f|%>
+			<%= f.submit "Friend", disabled: !logged_in? || @picture.voted_friend?(current_user), class: "vote-btn btn-block friend-vote" %>
+		<% end %>
 	</div>
+	<div class="col-xs-3 vote-btn text-center">
+		<%= form_for(:vote, method: :patch, url: picture_vote_path(params.merge({vote_type: "fiend"}))) do |f|%>
+			<%= f.submit "Fiend", disabled: !logged_in? || @picture.voted_fiend?(current_user), class: "vote-btn btn-block fiend-vote" %>
+		<% end %>
+	</div>
+
 	<div class="col-xs-2">
-		<%= link_to ">", picture_path(@next_picture, {type: params[:type], sort: params[:sort], index: @next_index, user_id: params[:user_id]}), class: "btn btn-danger next-prev-btn" %>
+		<%= link_to ">", picture_path(@next_picture, {type: params[:type], sort: params[:sort], index: @next_index, user_id: params[:user_id]}), class: "btn btn-danger btn-block next-prev-btn" %>
 	</div>
 </div>
 
