@@ -18,6 +18,18 @@ class UsersController < ApplicationController
 			results << pic.id.to_s
 		end
 		cookies[:results] = JSON.generate(results)
+		
+		friend_total = 0
+		vote_total = 0
+		pics.each do |pic|
+			friend_total += pic.friended_by.length
+			vote_total += pic.total_votes
+		end
+		if vote_total == 0
+			@friend_percentage = 50
+		else
+			@friend_percentage = ((friend_total.to_f / vote_total.to_f) * 100).floor
+		end
 
 	end
 
