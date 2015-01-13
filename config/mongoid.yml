@@ -85,7 +85,7 @@ production:
        # retry_interval specifies the number of seconds to wait
        # before retrying a single operation.
        retry_interval: 1
-
+       raise_not_found_error: false
        # The default timeout is 5, which is the time in seconds
        # for an operation to time out.
        # We recommend 15 because it allows for plenty of time
