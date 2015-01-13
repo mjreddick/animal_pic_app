@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+ruby '2.1.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.7'
@@ -55,3 +56,7 @@ gem 'mini_magick' # for post-upload image processing
 
 #figaro gem
 gem 'figaro'
+
+#needed for heroku
+gem 'rails_12factor', group: :production
+gem 'thin', group: :production
