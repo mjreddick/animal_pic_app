@@ -1,35 +1,51 @@
+<div class="row">
+	
+	<div class="col-xs-10 col-xs-offset-1 picture-box">
+		<div>
+			<h1><%= @picture.title %></h1>
+			<h5>
+				<%= link_to @picture.user.username, user_path(@picture.user) %>
+				&middot;
+				<%= @picture.posted_at %>
+			</h5>
+			<div class="picture-sub-box">
+				<%=image_tag(@picture.image.url, class: "img-responsive main-pic")%>
+			</div>
+			<% if @picture.caption.present? %>
+				<p><%= @picture.caption %></p>
+			<% end %>
+		</div>
+	</div>
+	
+</div>
 
-<h2><%= params %></h2>
+<div class="row">
+	<div class="col-xs-1 col-xs-offset-2">
+		<%= link_to "<", picture_path(@prev_picture, {type: params[:type], sort: params[:sort], index: @prev_index, user_id: params[:user_id]}), class: "btn btn-danger next-prev-btn" %>
+	</div>
 
-<p><%= cookies[:results]  %></p>
+	
 
-<h1><%= @picture.title %></h1>
-<h5>
-	<%= link_to @picture.user.username, user_path(@picture.user) %>
-	&middot;
-	<%= @picture.posted_at %>
-</h5>
-
-<%=image_tag(@picture.image.url)%>
-
-<% if @picture.caption.present? %>
-	<p><%= @picture.caption %></p>
-<% end %>
-
-<%= link_to "Prev", picture_path(@prev_picture, {type: params[:type], sort: params[:sort], index: @prev_index, user_id: params[:user_id]}) %>
-
-<%= link_to "Next", picture_path(@next_picture, {type: params[:type], sort: params[:sort], index: @next_index, user_id: params[:user_id]}) %>
-
-
-<%= form_for(:vote, method: :patch, url: picture_vote_path(params.merge({vote_type: "friend"}))) do |f|%>
-	<%= f.submit "Friend", disabled: !logged_in? || @picture.voted_friend?(current_user) %>
-<% end %>
-
-<%= form_for(:vote, method: :patch, url: picture_vote_path(params.merge({vote_type: "fiend"}))) do |f|%>
-	<%= f.submit "Fiend", disabled: !logged_in? || @picture.voted_fiend?(current_user) %>
-<% end %>
+	<div class="vote-container col-xs-6">
+		<div class="vote-btn">
+			<%= form_for(:vote, method: :patch, url: picture_vote_path(params.merge({vote_type: "friend"}))) do |f|%>
+				<%= f.submit "Friend", disabled: !logged_in? || @picture.voted_friend?(current_user), class: "vote-btn friend-vote" %>
+			<% end %>
+		</div>
+		<div class="vote-btn">
+			<%= form_for(:vote, method: :patch, url: picture_vote_path(params.merge({vote_type: "fiend"}))) do |f|%>
+				<%= f.submit "Fiend", disabled: !logged_in? || @picture.voted_fiend?(current_user), class: "vote-btn fiend-vote" %>
+			<% end %>
+		</div>
+	</div>
+	<div class="col-xs-2">
+		<%= link_to ">", picture_path(@next_picture, {type: params[:type], sort: params[:sort], index: @next_index, user_id: params[:user_id]}), class: "btn btn-danger next-prev-btn" %>
+	</div>
+</div>
 
 
-<%= link_to "edit", edit_picture_path(@picture) if logged_in_as(@picture.user.id) %>
+<div class="text-center">
+	<%= link_to "edit", edit_picture_path(@picture) if logged_in_as(@picture.user.id) %>
 
-<%= link_to "delete", :picture, method: :delete, data: { confirm: "Are you sure you want to delete this picture?" } if logged_in_as(@picture.user.id) %>
+	<%= link_to "delete", :picture, method: :delete, data: { confirm: "Are you sure you want to delete this picture?" } if logged_in_as(@picture.user.id) %>
+</div>

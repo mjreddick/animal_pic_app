@@ -12,3 +12,71 @@
 	margin: 20px 0;
 	text-align: center;
 }
+
+.picture-box
+{
+	background-color: gray;
+	// max-width: 730px;
+	border-radius: 5px;
+}
+
+.picture-sub-box
+{
+	// max-width: 700px;
+	background-color: black;
+	text-align: center;
+}
+
+.picture-box > div
+{
+	margin: 0 auto;
+	
+	padding-bottom: 15px
+	
+}
+
+.picture-box > h1 
+{
+	margin: 0;
+}
+
+.picture-box a
+{
+	color: #CA4242;
+}
+
+.next-prev-btn
+{
+	min-width: 60px;
+}
+.next-prev-btn a
+{
+	color: white;
+}
+
+.main-pic
+{
+	margin: 0 auto;
+}
+
+.vote-btn
+{
+	display: inline-block;
+	min-width: 100px;
+	font-size: 30px;
+	border-radius: 5px;
+}
+
+.vote-container
+{
+	text-align: center;
+	// margin: 0 auto;
+}
+.friend-vote
+{
+	background-color: yellow;
+}
+.fiend-vote
+{
+	background-color: red;
+}
