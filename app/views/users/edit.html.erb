@@ -1,13 +1,10 @@
-<h1>Edit this user!</h1>
+<h1>Edit <%=@user.username%>'s profile!</h1>
 
 <%= simple_form_for @user do |f| %>
-	<%= f.input :username %>
 	<%= f.input :email %>
-	<%= f.input :pet_name %>
-	<%#= f.input :password %>
-	<%#= f.input :password_confirmation %>	
-	<%= f.submit 'Edit Account' %>
+	<%= f.input :pet_name %>	
+	<%= f.submit 'Edit Account', class: "btn btn-danger form-submit-btn" %>
 <% end %>
 
-<%= link_to "Delete This Account", :user, method: :delete, data: { confirm: "Are you sure you want to delete your account?" } %>
+<%= link_to "Delete This Account", :user, method: :delete, data: { confirm: "Are you sure you want to delete your account?" }, class: "red-link" %>
 

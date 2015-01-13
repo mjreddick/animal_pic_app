@@ -52,8 +52,8 @@ class UsersController < ApplicationController
 	end
 
 	def update
-		if viewed_user.update_attributes(user_params)
-			redirect_to users_path
+		if viewed_user.update_attributes(user_edit_params)
+			redirect_to user_path
 		else
 			render :edit
 		end
@@ -77,6 +77,10 @@ class UsersController < ApplicationController
 
 		def user_params
 			params.require(:user).permit(:username, :pet_name, :email, :password, :password_confirmation, :image)
+		end
+
+		def user_edit_params
+			params.require(:user).permit(:pet_name,:email)
 		end
 
 		def viewed_user
