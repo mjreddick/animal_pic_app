@@ -1,6 +1,7 @@
 <h1>Add a new picture!</h1>
 
 <%= form_for @picture do |f| %>
+	<%= render 'shared/error_messages', object: f.object %>
 	<div>
 		<%= f.label :title, "Title" %>
 		<%= f.text_field :title %>
