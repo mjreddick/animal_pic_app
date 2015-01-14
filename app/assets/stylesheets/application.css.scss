@@ -73,7 +73,7 @@ body
 
 @mixin backgroundimage($url, $width_per, $height_per)
 {
-	background-image: url($url);
+	background-image: image-url($url);
 	background-size: $width_per $height_per;
 	background-repeat: no-repeat;
 	background-position: center; 
