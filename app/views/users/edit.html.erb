@@ -1,10 +1,16 @@
-<h1>Edit <%=@user.username%>'s profile!</h1>
 
-<%= simple_form_for @user do |f| %>
-	<%= f.input :email %>
-	<%= f.input :pet_name %>	
-	<%= f.submit 'Edit Account', class: "btn btn-danger form-submit-btn" %>
-<% end %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+  	<h1>Edit <%=@user.username%>'s profile!</h1>
+  	<%= form_for @user do |f| %>
+  		<%= render 'shared/error_messages', object: f.object %>
+  		<%= f.label :email %>
+  		<%= f.text_field :email, class: 'form-control' %>
+  		<%= f.label :pet_name %>
+  		<%= f.text_field :pet_name, class: 'form-control' %>
+		  <%= f.submit "Log in", class: "btn btn-danger form-submit-btn" %>
+		<% end %>
+
 
 <%= link_to "Delete This Account", :user, method: :delete, data: { confirm: "Are you sure you want to delete your account?" }, class: "red-link" %>
 
