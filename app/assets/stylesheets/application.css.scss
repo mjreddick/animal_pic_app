@@ -70,3 +70,21 @@ body
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
+
+@mixin backgroundimage($url, $width_per, $height_per)
+{
+	background-image: url($url);
+	background-size: $width_per $height_per;
+	background-repeat: no-repeat;
+	background-position: center; 
+}
+
+.fiend-btn
+{
+	@include backgroundimage("Devil_Horns.png", 50%, 100%);
+}
+
+.friend-btn
+{
+	@include backgroundimage("Halo.png", 50%, 100%);
+}
