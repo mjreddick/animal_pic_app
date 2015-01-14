@@ -11,6 +11,10 @@
 		  <%= f.submit "Log in", class: "btn btn-danger form-submit-btn" %>
 		<% end %>
 
+		<%= link_to "Delete This Account", :user, method: :delete, data: { confirm: "Are you sure you want to delete your account?" }, class: "red-link" %>
+	</div>
+</div>
 
-<%= link_to "Delete This Account", :user, method: :delete, data: { confirm: "Are you sure you want to delete your account?" }, class: "red-link" %>
+
+
 
