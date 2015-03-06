@@ -1,4 +1,13 @@
+<% unless logged_in?%>
+	<div class="jumbotron">
 
+		<h3 class="text-center">Welcome to 4leggedfiends.com</h3>
+		<p>4 legged fiends lets you find out once and for all whether your pet is truely your friend... or just another fiend. Upload photos of your pet and our users will vote to determine your pet's true nature. <%= link_to "Log in", new_session_path %> or <%= link_to "sign up", new_user_path %> to start uploading and voting, or just enjoy some animal pics!</p>
+		<div class="text-center">
+			<%= link_to "Sign Up Now!", new_user_path, class: "btn btn-danger btn-lg"%>
+		</div>
+	</div>
+<% end %>
 <div class="row">
 <!-- Button to select what type of pictures -->
 	<div class="index-button-container">
