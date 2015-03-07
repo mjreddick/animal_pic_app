@@ -88,3 +88,14 @@ body
 {
 	@include backgroundimage("Halo.png", 50%, 100%);
 }
+
+#nav-bar-account-link {
+	@media (min-width: 768px) {
+		padding: 10px;
+	}
+}
+
+#navigation {
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
+}
