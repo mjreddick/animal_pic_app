@@ -2,6 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+$next-prev-btn-size: 50px;
+
 .index-button
 {
 	margin: 0px 20px;
@@ -49,10 +51,10 @@
 // {
 // 	min-width: 60px;
 // }
-.next-prev-btn a
-{
-	color: white;
-}
+// .next-prev-btn a
+// {
+// 	color: white;
+// }
 
 .main-pic
 {
@@ -79,4 +81,25 @@
 .fiend-vote
 {
 	background-color: red;
+}
+
+#prev-pic-btn, #next-pic-btn {
+	font-size: $next-prev-btn-size;
+	color: rgb(219, 82, 75);
+	position: fixed;
+	top: 150px;
+}
+
+.next-pic-container, .last-pic-container {
+	width: $next-prev-btn-size;
+}
+
+.next-pic-container {
+	float: right;
+	// margin-left: 2%;
+}
+
+.last-pic-container {
+	float: left;
+	// margin-right: 2%;
 }

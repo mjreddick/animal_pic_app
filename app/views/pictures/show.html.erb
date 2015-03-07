@@ -1,6 +1,11 @@
 <div class="row">
+	<div class="last-pic-container hidden-xs">
+		<%= link_to '<span class="glyphicon glyphicon-chevron-left"></span>'.html_safe, picture_path(@prev_picture, {type: params[:type], sort: params[:sort], index: @prev_index, user_id: params[:user_id]}), id: "prev-pic-btn" %>
+	</div>
+
 	
-	<div class="col-xs-10 col-xs-offset-1 picture-box">
+
+	<div class="col-xs-12 col-sm-10 col-sm-offset-1 picture-box">
 		<div>
 			<h1><%= @picture.title %></h1>
 			<h5>
@@ -17,12 +22,17 @@
 		</div>
 	</div>
 	
+	<div class="next-pic-container hidden-xs">
+		<%= link_to '<span class="glyphicon glyphicon-chevron-right"></span>'.html_safe, picture_path(@next_picture, {type: params[:type], sort: params[:sort], index: @next_index, user_id: params[:user_id]}), id: "next-pic-btn" %>
+	</div>
+
+	
+
+
 </div>
 
 <div class="row">
-	<div class="col-xs-2 col-xs-offset-1">
-		<%= link_to "<", picture_path(@prev_picture, {type: params[:type], sort: params[:sort], index: @prev_index, user_id: params[:user_id]}), class: "btn btn-danger btn-block next-prev-btn", id: "prev-pic-btn" %>
-	</div>
+	
 
 	
 
@@ -37,9 +47,7 @@
 		<% end %>
 	</div>
 <!-- vote-btn btn-block fiend-vote -->
-	<div class="col-xs-2">
-		<%= link_to ">", picture_path(@next_picture, {type: params[:type], sort: params[:sort], index: @next_index, user_id: params[:user_id]}), class: "btn btn-danger btn-block next-prev-btn", id: "next-pic-btn" %>
-	</div>
+	
 </div>
 
 
