@@ -37,26 +37,32 @@ gem 'bcrypt', '~> 3.1.7'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-#Added
-#mongoid
+# Added
+# mongoid
 gem 'mongoid', '~>4.0.0'
 
-#bootstrap
+# bootstrap
 gem 'bootstrap-sass', '~> 3.3.3'
 gem 'autoprefixer-rails'
 
 gem 'simple_form'
 
-#carrierwave gems
+# carrierwave gems
 gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 
 gem 'fog' 				# required for Amazon S3
 gem 'mini_magick' # for post-upload image processing
 
-#figaro gem
+# figaro gem
 gem 'figaro'
 
-#needed for heroku
+# needed for heroku
 gem 'rails_12factor', group: :production
 gem 'thin', group: :production
+
+# Testing
+group :development, :test do
+  gem "rspec-rails"
+  gem "factory_girl_rails"
+end
