@@ -3,16 +3,31 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 $next-prev-btn-size: 50px;
+$pic-btn-size: 40px;
+// $picture-btn-container-padding: 4px;
 
 .index-button
 {
-	margin: 0px 20px;
+	// margin: 0px 20px;
+}
+
+.index-button button {
+	color: black;
+  background-color: rgba(0,0,0,0);
+  border-color: rgba(0,0,0,0);
+  border-bottom: 3px solid red;
+  border-radius: 2px;
+  padding: 6px;
 }
 
 .index-button-container
 {
-	margin: 20px 0;
 	text-align: center;
+	width: 300px;
+  margin: 20px auto;
+  background-color: rgb(238, 238, 238);
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .picture-box
@@ -27,6 +42,8 @@ $next-prev-btn-size: 50px;
 	// max-width: 700px;
 	background-color: black;
 	text-align: center;
+	border-radius: 3px;
+  overflow: hidden;
 }
 
 .picture-box > div
@@ -74,14 +91,14 @@ $next-prev-btn-size: 50px;
 // 	text-align: center;
 // 	// margin: 0 auto;
 // }
-.friend-vote
-{
-	background-color: yellow;
-}
-.fiend-vote
-{
-	background-color: red;
-}
+// .friend-vote
+// {
+// 	background-color: yellow;
+// }
+// .fiend-vote
+// {
+// 	background-color: red;
+// }
 
 #prev-pic-btn, #next-pic-btn {
 	font-size: $next-prev-btn-size;
@@ -102,4 +119,66 @@ $next-prev-btn-size: 50px;
 .last-pic-container {
 	float: left;
 	// margin-right: 2%;
+}
+
+// .picture-btn-container {
+// 	background-color: gray;
+// 	margin-top: 1px;
+// 	border-radius: 5px;
+// 	height: $pic-btn-size + $picture-btn-container-padding * 2;
+// 	padding-top: $picture-btn-container-padding;
+// 	padding-bottom: $picture-btn-container-padding;
+// }
+
+.pic-button {
+	height: $pic-btn-size;
+	width: $pic-btn-size;
+	border-radius: 3px;
+	background-color: rgb(85, 85, 85);
+	border-color: rgb(85, 85, 85);
+	padding: 0;
+}
+
+.pic-button:hover {
+	background-color: rgb(85, 85, 85);
+	border-color: rgb(85, 85, 85);
+}
+
+// #fiend-btn {
+// 	background-image: image-url("Devil_Horns.png");
+// 	background-size: 100%;
+// 	background-repeat: no-repeat;
+// 	background-position: center; 
+// }
+
+@mixin backgroundimage($url, $width_per, $height_per)
+{
+	background-image: image-url($url);
+	background-size: $width_per $height_per;
+	background-repeat: no-repeat;
+	background-position: center; 
+}
+
+
+#fiend-btn
+{
+	@include backgroundimage("fiend_btn_bg.png", 100%, 100%);
+}
+
+#friend-btn
+{
+	@include backgroundimage("friend_btn_bg.png", 100%, 100%);
+}
+
+#fav-btn
+{
+	@include backgroundimage("fav_btn_bg.png", 100%, 100%);
+}
+
+.caption {
+	// background-color: rgb(173, 173, 173);
+  // border-radius: 3px;
+  // padding: 5px;
+  margin-top: 5px;
+  color: white;
 }

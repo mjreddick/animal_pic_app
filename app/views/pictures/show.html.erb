@@ -17,8 +17,15 @@
 				<%=image_tag(@picture.image.url, class: "img-responsive main-pic")%>
 			</div>
 			<% if @picture.caption.present? %>
-				<p><%= @picture.caption %></p>
+				<div class="caption">
+					<%= @picture.caption %>
+				</div>
 			<% end %>
+		</div>
+		<div class="row">
+			<div id="friend-btn" class="pic-button btn btn-default"></div>
+			<div id="fiend-btn" class="pic-button btn btn-default"></div>
+			<div id="fav-btn" class="pic-button btn btn-default"></div>
 		</div>
 	</div>
 	
@@ -26,33 +33,38 @@
 		<%= link_to '<span class="glyphicon glyphicon-chevron-right"></span>'.html_safe, picture_path(@next_picture, {type: params[:type], sort: params[:sort], index: @next_index, user_id: params[:user_id]}), id: "next-pic-btn" %>
 	</div>
 
-	
-
-
 </div>
 
-<div class="row">
+<!-- <div class="row">
+	<div class="col-xs-12 col-sm-10 col-sm-offset-1 picture-btn-container">
+
+	<div id="friend-btn" class="pic-button btn btn-default"></div>
+	<div id="fiend-btn" class="pic-button btn btn-default"></div>
+
+	</div>
+</div> -->
+
+<!-- <div class="row">
 	
 
 	
 
 	<div class="col-xs-3 vote-btn text-center">
-		<%= form_for(:vote, method: :patch, url: picture_vote_path(params.merge({vote_type: "friend"}))) do |f|%>
-			<%= f.submit "", disabled: !logged_in? || @picture.voted_friend?(current_user), class: "btn btn-default btn-block friend-btn" %>
-		<% end %>
+		<%#= form_for(:vote, method: :patch, url: picture_vote_path(params.merge({vote_type: "friend"}))) do |f|%>
+			<%#= f.submit "", disabled: !logged_in? || @picture.voted_friend?(current_user), class: "btn btn-default btn-block friend-btn" %>
+		<%# end %>
 	</div>
 	<div class="col-xs-3 vote-btn text-center">
-		<%= form_for(:vote, method: :patch, url: picture_vote_path(params.merge({vote_type: "fiend"}))) do |f|%>
-			<%= f.submit "", disabled: !logged_in? || @picture.voted_fiend?(current_user), class: "btn btn-default btn-block fiend-btn" %>
-		<% end %>
+		<%#= form_for(:vote, method: :patch, url: picture_vote_path(params.merge({vote_type: "fiend"}))) do |f|%>
+			<%#= f.submit "", disabled: !logged_in? || @picture.voted_fiend?(current_user), class: "btn btn-default btn-block fiend-btn" %>
+		<%# end %>
 	</div>
-<!-- vote-btn btn-block fiend-vote -->
 	
-</div>
+</div> -->
 
 
-<div class="text-center">
-	<%= link_to "edit", edit_picture_path(@picture), class: "red-link" if logged_in_as(@picture.user.id) %>
+<!-- <div class="text-center">
+	<%#= link_to "edit", edit_picture_path(@picture), class: "red-link" if logged_in_as(@picture.user.id) %>
 
-	<%= link_to "delete", :picture, method: :delete, data: { confirm: "Are you sure you want to delete this picture?" }, class: "red-link" if logged_in_as(@picture.user.id) %>
-</div>
+	<%#= link_to "delete", :picture, method: :delete, data: { confirm: "Are you sure you want to delete this picture?" }, class: "red-link" if logged_in_as(@picture.user.id) %>
+</div> -->
