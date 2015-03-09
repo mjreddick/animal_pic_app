@@ -39,7 +39,7 @@
 	
 	<% @pictures.each_with_index do |picture, index| %>
 
-		<div class="col-md-3 col-sm-4 col-xs-6 text-center">
+		<div class="col-md-2 col-sm-3 col-xs-6 text-center <%= "col-md-offset-1" if index%5 == 0 %>">
 			<%= link_to image_tag(picture.image.url(:thumb), size: "160x160", class: "pic-thumb"), picture_path(picture, {type: params[:type], sort: params[:sort], index: index}) %>
 		</div>
 
