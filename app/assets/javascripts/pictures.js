@@ -71,41 +71,135 @@
       }
     }
 
-    $('#friend-btn').click(sendVote);
-    $('#fiend-btn').click(sendVote);
+    $('#friend-btn').click({vote_type: "friend"}, voteBtnClicked);
+    $('#fiend-btn').click({vote_type: "fiend"}, voteBtnClicked);
 
+    function voteBtnClicked(event){
 
+      var vote_type = event.data.vote_type;
+      // refs to dom elements
+      var friendBtn = $('#friend-btn');
+      var fiendBtn = $('#fiend-btn');
+      var bar = $('.pic-friend-bar');
 
-    function sendVote() {
-      console.log("inside sendVote")
-      var type = $(this).data('type');
-      
+      // get the vote values before click
+      var votedFriend = friendBtn.data('voted');
+      var votedFiend = fiendBtn.data('voted');
+
+      // Get the id of the current picture from the path
       var pathArray = window.location.pathname.split('/');
       // remove any empty strings
       pathArray = $.grep(pathArray,function(n){ return(n) });
       var picId = pathArray[pathArray.length - 1];
-      
-      $.ajax({
-        method: "PATCH",
-        url: "/api/pictures/" + picId + "/vote",
-        data: { vote_type: type }
-      })
 
-      var otherButton;
+      if(vote_type == "friend") {
+        if(votedFriend) {
+          // removing a friend vote
+          setVoted(false, false);
 
-      if(type == "friend") {
-        otherButton = $('#fiend-btn');
+          // decrement number of friend votes
+          bar.data('friends', bar.data('friends') - 1);
+          
+          removeVote();
+        }
+        else if(votedFiend) {
+          // change vote from fiend to friend
+          setVoted(true, false);
+          castVote("friend", 0, 1);
+        }
+        else {
+          // adding a friend vote
+          setVoted(true, false);
+          castVote("friend", 1, 1);
+        }
       }
       else {
-        otherButton = $('#friend-btn');
+        if(votedFiend) {
+          // removing a fiend vote
+          setVoted(false, false);
+          removeVote();
+        }
+        else if(votedFriend) {
+          // change vote from friend to fiend
+          setVoted(false, true);
+          castVote("fiend", 0, -1);
+        }
+        else {
+          // adding a fiend vote
+          setVoted(false, true);
+          castVote("fiend", 1, 0);
+        }
       }
-      otherButton.removeClass("selected").addClass("unselected");
 
-      $(this).removeClass("unselected").addClass("selected");
+      // Take care of updating the display
 
-    }
+      // update the vote buttons
+      friendBtn.removeClass('selected unselected');
+      fiendBtn.removeClass('selected unselected');
 
-    console.log("loaded!")
+      if(friendBtn.data('voted')) {
+        friendBtn.addClass('selected');
+        fiendBtn.addClass('unselected');
+      }
+      else if(fiendBtn.data('voted')) {
+        fiendBtn.addClass('selected');
+        friendBtn.addClass('unselected');
+      }
+      else {
+        friendBtn.addClass('unselected');
+        fiendBtn.addClass('unselected');
+      }
+      
+      // update the friend percentage meter
+      var friendPercent;
+      if(bar.data('votes') == 0) {
+        friendPercent = 50;
+      }
+      else {
+        friendPercent =  Math.floor((bar.data('friends') / bar.data('votes')) * 100);
+      }
+
+      $('.friend-progress-bar')[0].style.width = friendPercent + '%';
+
+      // Update the total number of votes
+
+      $('#num-votes').text(bar.data('votes')+ " " + (bar.data('votes') == 1 ? "Vote" : "Votes"));
+      // Helper functions 
+
+      function setVoted(friendVote, fiendVote) {
+        friendBtn.data('voted', friendVote);
+        fiendBtn.data('voted', fiendVote);
+      }
+
+      function removeVote() {
+        // decrement the total votes
+        bar.data('votes', bar.data('votes') - 1);
+        
+        $.ajax({
+          method: 'PATCH',
+          url: '/api/pictures/' + picId + '/remove_vote'
+        })
+      }
+
+      // cast a vote for vote_type ("friend" or "fiend")
+      // total_inc will be added to total number of votes
+      // friends_inc will be added to number of friend votes
+      function castVote(vote_type, total_inc, friends_inc) {
+        // make api call
+        // set friend votes
+        bar.data('friends', bar.data('friends') + friends_inc);
+        // set total votes
+        bar.data('votes', bar.data('votes') + total_inc);
+        
+        $.ajax({
+          method: 'PATCH',
+          url: '/api/pictures/' + picId + '/vote',
+          data: { vote_type: vote_type }
+        })
+      }
+
+    } 
+
 
   };
 

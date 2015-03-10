@@ -39,6 +39,13 @@ class Picture
     self.is_friend = self.friended_by.length > self.fiended_by.length
   end
 
+  # removes a user's id from the friended_by and fiended_by list
+  def remove_vote(voter)
+    self.inc(total_votes: -1) if voted_friend?(voter) || voted_fiend?(voter)
+    self.pull_all(friended_by: [voter.id.to_s])
+    self.pull_all(fiended_by: [voter.id.to_s])
+  end
+
   #check if someone voted for friend
   def voted_friend?(voter)
     self.friended_by.index(voter.id.to_s).present?
@@ -55,5 +62,18 @@ class Picture
 
   def is_active?
     is_active
-  end    
+  end
+
+  def friend_percentage
+    if total_votes == 0
+      return 50
+    else
+      return ((friended_by.length.to_f / total_votes.to_f) * 100).floor
+    end    
+  end
+
+  def num_friend_votes
+    friended_by.length
+  end
+
 end

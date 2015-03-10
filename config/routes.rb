@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
   namespace :api do 
     patch '/pictures/:id/vote' => 'pictures#vote'
+    patch '/pictures/:id/remove_vote' => 'pictures#remove_vote'
   end
 
 

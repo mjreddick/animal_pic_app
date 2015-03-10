@@ -113,6 +113,7 @@ $pic-btn-size: 40px;
 
 #fiend-btn
 {
+  float: left;
 	@include backgroundimage("fiend_btn_bg.png", 100%, 100%);
 }
 
@@ -122,6 +123,8 @@ $pic-btn-size: 40px;
 
 #friend-btn
 {
+  float: left;
+  margin-right: 5px;
 	@include backgroundimage("friend_btn_bg.png", 100%, 100%);
 }
 
@@ -131,6 +134,7 @@ $pic-btn-size: 40px;
 
 #fav-btn
 {
+  float: right;
 	@include backgroundimage("fav_btn_bg.png", 100%, 100%);
 }
 
@@ -141,4 +145,16 @@ $pic-btn-size: 40px;
 
 .unselected {
   background-color: #D3D3D3;
+}
+
+.pic-friend-bar {
+  height: 10px;
+  width: 150px;
+  display: inline-block;
+  margin: 15px 10px 0 0;
+
+  @media (max-width: 450px) {
+    height: 7px;
+    width: 70px;
+  }
 }

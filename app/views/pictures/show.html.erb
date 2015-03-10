@@ -22,9 +22,13 @@
 				</div>
 			<% end %>
 		</div>
-		<div class="row">
-			<div id="friend-btn" data-type="friend" class="pic-button btn btn-default <%= logged_in? && @picture.voted_friend?(current_user) ? 'selected' : 'unselected' %> <%= logged_in? ? '' : 'disabled' %>"></div>
-			<div id="fiend-btn" data-type="fiend" class="pic-button btn btn-default <%= logged_in? && @picture.voted_fiend?(current_user) ? 'selected' : 'unselected' %> <%= logged_in? ? '' : 'disabled' %>"></div>
+		<div class="row text-center">
+			<div id="friend-btn" data-type="friend" data-voted="<%= @picture.voted_friend?(current_user) %>" class="pic-button btn btn-default <%= logged_in? && @picture.voted_friend?(current_user) ? 'selected' : 'unselected' %> <%= logged_in? ? '' : 'disabled' %>"></div>
+			<div id="fiend-btn" data-type="fiend" data-voted="<%= @picture.voted_fiend?(current_user) %>" class="pic-button btn btn-default <%= logged_in? && @picture.voted_fiend?(current_user) ? 'selected' : 'unselected' %> <%= logged_in? ? '' : 'disabled' %>"></div>
+			<div data-votes="<%= @picture.total_votes %>" data-friends="<%= @picture.num_friend_votes %>" class="progress friend-progress pic-friend-bar">
+			  <div class="progress-bar friend-progress-bar" role="progressbar" style="width: <%= @picture.friend_percentage %>%;"></div>
+			</div>
+			<span id="num-votes"><%= "#{pluralize(@picture.total_votes, 'Vote')}" %></span>
 			<div id="fav-btn" class="pic-button btn btn-default"></div>
 		</div>
 	</div>

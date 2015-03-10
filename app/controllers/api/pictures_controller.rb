@@ -37,7 +37,30 @@ module API
 
       return head 204
       
-    end
+    end # vote
+
+    def remove_vote 
+      # require user is logged in to vote
+      if logged_in?
+        # find the picture
+        picture = Picture.where(id: params[:id], is_active: true).first
+
+        if picture
+          picture.remove_vote(current_user)
+        else
+          # picture with the given id doesn't exist
+          return head 422
+        end
+
+      else
+        # user not authorized
+        return head 401
+      end
+      picture.save
+
+      return head 204
+      
+    end # remove_vote
 
   end
 end
