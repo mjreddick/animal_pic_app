@@ -40,7 +40,7 @@ module API
     end # vote
 
     def remove_vote 
-      # require user is logged in to vote
+      # require user is logged in to remove vote
       if logged_in?
         # find the picture
         picture = Picture.where(id: params[:id], is_active: true).first
