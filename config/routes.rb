@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   
   get 'signup' => 'users#new', as: :new_user 
 
-  patch '/pictures/:id/vote' => 'pictures#vote', as: :picture_vote
   resources :pictures, except: [:index]
   
   resources :users, except: [:new, :index]
@@ -20,6 +19,10 @@ Rails.application.routes.draw do
   get 'login' => 'sessions#new', as: :new_session
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
+
+  namespace :api do 
+    patch '/pictures/:id/vote' => 'pictures#vote'
+  end
 
 
   

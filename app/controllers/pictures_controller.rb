@@ -76,18 +76,18 @@ class PicturesController < ApplicationController
 		redirect_to :root
 	end
 
-	def vote
-		case params[:vote_type]
-		when "friend"
-			current_picture.vote_friend(current_user)
-		when "fiend"
-			current_picture.vote_fiend(current_user)
-		else
-			redirect_to picture_path(current_picture, {type: params[:type], sort: params[:sort], index: params[:index]}) and return
-		end
-		current_picture.save
-		redirect_to picture_path(current_picture, {type: params[:type], sort: params[:sort], index: params[:index]}) and return
-	end
+	# def vote
+	# 	case params[:vote_type]
+	# 	when "friend"
+	# 		current_picture.vote_friend(current_user)
+	# 	when "fiend"
+	# 		current_picture.vote_fiend(current_user)
+	# 	else
+	# 		redirect_to picture_path(current_picture, {type: params[:type], sort: params[:sort], index: params[:index]}) and return
+	# 	end
+	# 	current_picture.save
+	# 	redirect_to picture_path(current_picture, {type: params[:type], sort: params[:sort], index: params[:index]}) and return
+	# end
 
 	private
 
