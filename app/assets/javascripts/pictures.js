@@ -178,7 +178,7 @@
         $.ajax({
           method: 'PATCH',
           url: '/api/pictures/' + picId + '/remove_vote'
-        })
+        });
       }
 
       // cast a vote for vote_type ("friend" or "fiend")
@@ -195,7 +195,7 @@
           method: 'PATCH',
           url: '/api/pictures/' + picId + '/vote',
           data: { vote_type: vote_type }
-        })
+        });
       }
 
     } 
