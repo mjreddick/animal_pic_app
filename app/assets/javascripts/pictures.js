@@ -2,7 +2,7 @@
   var ready = function(){
 
     // swipe left/right to move between pictures
-    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    // >>>>>>>>>>>>>>>>SWIPE>>>>>>>>>>>>>>>>>>>>>>>>
     document.addEventListener('touchstart', handleTouchStart, false);        
     document.addEventListener('touchend', handleTouchEnd, false);
 
@@ -40,11 +40,12 @@
       xDown = null;
       yDown = null;                                             
     }; 
-    // <<<<<<<<<<<<<<<<<<<<<<<<<<<< swipe left/right 
+    // <<<<<<<<<<<<<<SWIPE<<<<<<<<<<<<<<<<<<<<
 
     // detect keydown events in order to allow a user to use 
     // left arrow (or a) to go to the last picture and
     // right arrow (or d) to go to the next picture
+    // >>>>>>>>>>>>>>KEYDOWN>>>>>>>>>>>>>>>>>>>>>>>
     window.onkeydown = function(keyDown) {
       switch (keyDown.keyCode) {
         // right arrow
@@ -64,13 +65,16 @@
       }
     };
 
+
     function clickButton(name) {
       var button = $(name)[0];
       if(button) {
         button.click();
       }
     }
+    // <<<<<<<<<<<<<<KEYDOWN<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
+    //>>>>>>>>>>>>>>>VOTING>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     $('#friend-btn').click({vote_type: "friend"}, voteBtnClicked);
     $('#fiend-btn').click({vote_type: "fiend"}, voteBtnClicked);
 
@@ -86,11 +90,7 @@
       var votedFriend = friendBtn.data('voted');
       var votedFiend = fiendBtn.data('voted');
 
-      // Get the id of the current picture from the path
-      var pathArray = window.location.pathname.split('/');
-      // remove any empty strings
-      pathArray = $.grep(pathArray,function(n){ return(n) });
-      var picId = pathArray[pathArray.length - 1];
+      var picId = getPictureId();
 
       if(vote_type == "friend") {
         if(votedFriend) {
@@ -196,11 +196,54 @@
           url: '/api/pictures/' + picId + '/vote',
           data: { vote_type: vote_type }
         });
+      } // castVote
+
+    } // voteBtnClicked
+    // <<<<<<<<<<<<<<VOTING<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+    // >>>>>>>>>>>>>FAVORITING>>>>>>>>>>>>>>>>>
+    $('#fav-btn').click(favBtnClicked);
+
+    function favBtnClicked() {
+      var favBtn = $('#fav-btn');
+      var picId = getPictureId();
+
+      if(favBtn.data('favorited')) {
+        $.ajax({
+          method: 'PATCH',
+          url: '/api/users/remove_favorite/',
+          data: { picture_id: picId }
+        });
+      }
+      else {
+        $.ajax({
+          method: 'PATCH',
+          url: '/api/users/add_favorite/',
+          data: { picture_id: picId }
+        });
       }
 
-    } 
+      favBtn.data('favorited', !favBtn.data('favorited'));
 
+      favBtn.removeClass('selected unselected');
 
+      if(favBtn.data('favorited')) {
+        favBtn.addClass('selected');
+      }
+      else {
+        favBtn.addClass('unselected');
+      }
+    }
+    // <<<<<<<<<<<<<FAVORITING<<<<<<<<<<<<<<<<<
+
+    // >>>>>>>>>>>>>HELPER FUNCS>>>>>>>>>>>>>>
+    function getPictureId() {
+      var pathArray = window.location.pathname.split('/');
+      // remove any empty strings
+      pathArray = $.grep(pathArray,function(n){ return(n) });
+      return pathArray[pathArray.length - 1];
+    }
+    // <<<<<<<<<<<<<HELPER FUNCS<<<<<<<<<<<<<<
   };
 
   $(document).ready(ready);

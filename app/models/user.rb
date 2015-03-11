@@ -9,6 +9,7 @@ class User
   field :pet_name, type: String
   field :email, type: String
   field :password_digest, type: String
+  field :favorites, type: Array, :default => []
 
   mount_uploader :image, AvatarUploader
 
@@ -35,6 +36,18 @@ class User
 
   def is_active?
     is_active
+  end
+
+  def add_favorite(picture)
+    self.add_to_set(favorites: picture.id.to_s)
+  end
+
+  def remove_favorite(picture)
+    self.pull_all(favorites: [picture.id.to_s])
+  end
+
+  def favorited?(picture)
+    self.favorites.index(picture.id.to_s).present?
   end
 
   private

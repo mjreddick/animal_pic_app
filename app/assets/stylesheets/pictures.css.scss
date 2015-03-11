@@ -138,6 +138,11 @@ $pic-btn-size: 40px;
 	@include backgroundimage("fav_btn_bg.png", 100%, 100%);
 }
 
+#fav-btn.selected {
+  // change this
+  background-color: #AE2121; 
+}
+
 .caption {
   margin-top: 5px;
   color: white;
