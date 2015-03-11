@@ -5,6 +5,7 @@
 $next-prev-btn-size: 50px;
 $pic-btn-size: 40px;
 
+
 .index-button button {
 	color: rgb(237, 28, 36);
   background-color: rgba(0,0,0,0);
@@ -162,4 +163,51 @@ $pic-btn-size: 40px;
     height: 7px;
     width: 70px;
   }
+}
+
+#comments-container {
+  background-color: gray;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#comments-container > .row {
+  margin-bottom: 10px
+}
+
+#comment-input {
+  background-color: black;
+  border-color: black;
+  color: white;
+  resize: none;
+  width: 100%;
+  border-radius: 5px;
+  padding: 2px 4px;
+}
+
+.single-comment-box {
+  background-color: #181817;
+  color: white;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  padding: 5px;
+}
+
+.single-comment-box p {
+  color: #ddddd1;
+}
+
+.single-comment-box a {
+  color: #AE2121;
+}
+
+.single-comment-box span {
+  color: rgb(149, 139, 139);
+}
+
+.single-comment-box p {
+  margin: 0;
 }

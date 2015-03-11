@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     patch '/pictures/:id/remove_vote' => 'pictures#remove_vote'
     patch '/users/add_favorite' => 'users#add_favorite'
     patch '/users/remove_favorite' => 'users#remove_favorite'
+    post '/comments' => 'comments#create'
   end
 
 

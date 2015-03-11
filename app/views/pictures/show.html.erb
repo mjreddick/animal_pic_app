@@ -39,6 +39,27 @@
 
 </div>
 
+<div class="row">
+	<div id="comments-container" class="col-xs-12 col-sm-10 col-sm-offset-1">
+		<div class="row">
+			<div class="col-xs-8 col-sm-10 col-lg-11" >
+				<textarea id="comment-input" placeholder="<%= logged_in? ? 
+				'Add a comment...' : 'Log in to add a comment...'%>" <%= logged_in? ? "" : "disabled" %> ></textarea>	
+			</div>
+			
+			<button id="comment-submit" class="btn btn-danger <%= logged_in? ? "" : "disabled" %>">Submit</button>
+		</div>
+		
+		<% @picture.comments.each do |comment| %>
+			<div class="single-comment-box">
+				<%= link_to comment.user.username, user_path(comment.user) %> 
+				<span> : <%= comment.posted_at %></span>
+				<p><%= comment.comment_text %></p>
+			</div>
+		<% end %>
+	</div>
+</div>
+
 
 
 <!-- <div class="text-center">

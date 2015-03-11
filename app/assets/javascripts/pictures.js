@@ -45,6 +45,7 @@
     // detect keydown events in order to allow a user to use 
     // left arrow (or a) to go to the last picture and
     // right arrow (or d) to go to the next picture
+    // as well as press enter to submit a comment
     // >>>>>>>>>>>>>>KEYDOWN>>>>>>>>>>>>>>>>>>>>>>>
     window.onkeydown = function(keyDown) {
       switch (keyDown.keyCode) {
@@ -52,26 +53,30 @@
         case 39:
         // d
         case 68:
-        clickButton('#next-pic-btn');
+        if(! $('#comment-input').is(':focus')) {
+          clickButton('#next-pic-btn');
+        }
         break;
         // left arrow
         case 37:
         // a
         case 65:
-        clickButton('#prev-pic-btn');
+        if(! $('#comment-input').is(':focus')) {
+          clickButton('#prev-pic-btn');
+        }
+        break;
+        // enter
+        case 13:
+        if($('#comment-input').is(':focus')) {
+          submitComment();
+          return false
+        }
         break;
         default:
         break;
       }
     };
 
-
-    function clickButton(name) {
-      var button = $(name)[0];
-      if(button) {
-        button.click();
-      }
-    }
     // <<<<<<<<<<<<<<KEYDOWN<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     //>>>>>>>>>>>>>>>VOTING>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -236,12 +241,65 @@
     }
     // <<<<<<<<<<<<<FAVORITING<<<<<<<<<<<<<<<<<
 
+    // >>>>>>>>>>>>>SUBMIT COMMENTS>>>>>>>>>>>>>>>>>>>
+
+    $('#comment-submit').click(submitComment);
+
+    function submitComment() {
+      var commentText = $('#comment-input').val();
+
+      // make sure the comment isn't empty
+      if(commentText) {
+        $.ajax({
+          method: 'POST',
+          url: '/api/comments',
+          data: { text: commentText, picture_id: getPictureId() }
+        });
+
+        // add the comment to the display
+        $('#comments-container').append(createCommentHtml(commentText));
+      }
+
+      // reset the input box
+      $('#comment-input').val("");
+
+    }
+
+    function createCommentHtml(commentText) {
+      // get link to current user
+      var profileLinkTag = $('#profile-link');
+      var profilePath = "#";
+      var username = "user"
+      if(profileLinkTag.length) {
+        username = profileLinkTag.data('username');
+        profilePath = profileLinkTag[0].pathname;
+      }
+      var comment = '<div class="single-comment-box">';
+      
+      comment += '<a href="' + profilePath + '">' + username + '</a>';
+      comment += '<span> : Just now</span>';
+      comment += '<p>' + commentText + '</p>';
+      comment += '</div>';
+
+      return comment;
+    }
+
+    // <<<<<<<<<<<<<SUBMIT COMMENTS<<<<<<<<<<<<<<<<<<<
+
+
     // >>>>>>>>>>>>>HELPER FUNCS>>>>>>>>>>>>>>
     function getPictureId() {
       var pathArray = window.location.pathname.split('/');
       // remove any empty strings
       pathArray = $.grep(pathArray,function(n){ return(n) });
       return pathArray[pathArray.length - 1];
+    }
+
+    function clickButton(name) {
+      var button = $(name)[0];
+      if(button) {
+        button.click();
+      }
     }
     // <<<<<<<<<<<<<HELPER FUNCS<<<<<<<<<<<<<<
   };

@@ -14,6 +14,7 @@ class User
   mount_uploader :image, AvatarUploader
 
   has_many :pictures
+  has_many :comments
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 

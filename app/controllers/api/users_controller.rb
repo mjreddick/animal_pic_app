@@ -20,7 +20,7 @@ module API
         # user not authorized
         return head 401
       end
-      user.save
+      current_user.save
 
       return head 204
     end # add_favorite
