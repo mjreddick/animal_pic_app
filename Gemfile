@@ -61,6 +61,9 @@ gem 'figaro'
 gem 'rails_12factor', group: :production
 gem 'thin', group: :production
 
+# make words possessive
+gem 'possessive'
+
 # Testing
 group :development, :test do
   gem "rspec-rails"
