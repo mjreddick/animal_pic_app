@@ -20,7 +20,7 @@ module API
         # user not authorized
         return head 401
       end
-      picture.save
+      user.save
 
       return head 204
     end # add_favorite
