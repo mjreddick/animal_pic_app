@@ -3,6 +3,20 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
+.profile-friend-bar {
+  width: 200px;
+  height: 10px;
+  margin: 0 auto;
+}
+
+.profile-pic-container {
+  margin-bottom: 20px;
+}
+
+.profile-pic-container h3 {
+  margin: 0;
+}
+
 .pic-container
 {
 	background-color: white;
@@ -13,3 +27,56 @@
 	border-bottom-left-radius: 10px;
 	margin-bottom: 10px
 }
+
+#friend-meter-container {
+  width: 300px;
+  margin: 0 auto;
+  position: relative;
+}
+
+#paw-indicator {
+  position: absolute;
+  top: 5px;
+}
+
+.pet-intro {
+  // background-color: white;
+  // border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.pic-choice-container {
+  margin-bottom: 15px;
+  text-align: center;
+}
+.pic-choice-container a {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.pic-choice-container a.selected {
+  background-color: white;
+}
+
+.pic-choice-container img {
+  vertical-align: bottom;
+  // margin-left: 10px;
+}
+
+.view-pictures {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.users-pic-selector {
+  margin-bottom: 10px;
+  border-bottom: 1px solid black;
+}
+
+.no-pic-message {
+  margin-top: 20px;
+  font-size: 20px;
+}
+

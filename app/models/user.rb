@@ -7,6 +7,7 @@ class User
   field :is_active, type: Boolean, :default => true
   field :username, type: String
   field :pet_name, type: String
+  field :about, type: String
   field :email, type: String
   field :password_digest, type: String
   field :favorites, type: Array, :default => []

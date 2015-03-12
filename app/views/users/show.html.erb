@@ -1,37 +1,56 @@
 
 <div class="row">
-	<div class="col-md-3 col-sm-12 text-center">
+	<div class="col-md-4 col-xs-12 text-center profile-pic-container">
 		<!-- <div class="pet-pic"></div> -->
 		<%= image_tag @user.image.url, size: "200x200", class: "img-circle"%>
-		<h3><%= @user.pet_name %></h3>
-	</div>
-	<div class="col-md-1 col-sm-2 col-xs-2 pull-middle">
-		<%= image_tag("Halo.png", class: "img-responsive") %>
-	</div>
-	<div class="col-md-7 col-sm-8 col-xs-8 pull-middle">
-		<div class="progress friend-progress">
-		  <div class="progress-bar friend-progress-bar" role="progressbar" style="width: <%=@friend_percentage%>%;"></div>
+		<h3><%= @user.pet_name.titleize %></h3>
+		
+		<div id="friend-meter-container">
+			<%= image_tag "halo_horns_bar.png" %>
+			<%= image_tag "Paw_Small.png", id: "paw-indicator", style: "left: #{(195*@friend_percentage/100).floor + 40}px" %>
 		</div>
+		
 	</div>
-	<div class="col-md-1 col-sm-2 col-xs-2 pull-middle">
-		<%= image_tag("Devil_Horns.png", class: "img-responsive") %>
+	<div class="col-md-7 col-xs-10 col-xs-offset-1 col-md-offset-0 pet-intro">
+		<h4><%= "Meet #{@user.pet_name.titleize}, #{@user.username.possessive.titleize} pet" %></h4>
+		<% if @user.about %>
+			<p>
+				<strong>About <%= @user.pet_name.titleize %></strong>: <%= @user.about %>
+			</p>
+		<% end %>
+		<p><strong>Pictures:</strong> <%= @num_pics %></p>
+		<p><strong>Votes received:</strong> <%= @vote_total %></p>
+		<% if @vote_total > 0 %>
+			<p><strong>Friend %:</strong> <%= @friend_percentage %></p>
+			<p><strong>Fiend %:</strong> <%= 100 - @friend_percentage %></p>
+		<% end %>
+		
 	</div>
 </div>
-
-<ul class="nav nav-tabs nav-justified">
-	<%=content_tag :li, link_to(image_tag("Halo.png", size: "20x20") + " Friend", user_path({type: "friends"})), class: @type== "friends" ? "active" : "" %>
-	<%=content_tag :li, link_to(image_tag("Devil_Horns.png", size: "20x20") + " Fiend", user_path({type: "fiends"})), class: @type== "fiends" ? "active" : "" %>
-
-</ul>
-<div class="container-fluid pic-container">
-	<% @pictures.each_with_index do |picture, index| %>
-		<div class="col-md-4 col-sm-6 text-center">
-			<%= link_to image_tag(picture.image.url(:thumb), size: "160x160", class: "pic-thumb"), picture_path(picture, {type: @type, sort: "newest", index: index, user_id: @user.id.to_s}) %>
+<div>
+	<div class="row users-pic-selector">
+		<div class="col-xs-12 col-md-6 text-center view-pictures">
+			View <%= @user.username.possessive.titleize %> Pictures
 		</div>
-	<% end %>
-	
-</div>
-<div class="row">
-	
+		<div class="pic-choice-container col-xs-12 col-md-6">
+			<%= link_to image_tag("friend_small.png"), user_path({type: "friends"}), class: @type == "friends" ? "selected" : "" %>
+			<%= link_to image_tag("fiend_small.png"), user_path({type: "fiends"}), class: @type == "fiends" ? "selected" : "" %>
+			<%= link_to image_tag("favorites_small.png"), user_path({type: "favorites"}), class: @type == "favorites" ? "selected" : "" %>
+		</div>
+	</div>
+
+	<div class="row">
+		<% if !@pictures.empty? %>
+			<% @pictures.each_with_index do |picture, index| %>
+				<div class="col-md-3 col-xs-6 text-center">
+					<%= link_to image_tag(picture.image.url(:thumb), size: "160x160", class: "pic-thumb"), picture_path(picture, {type: @type, sort: "newest", index: index, user_id: @user.id.to_s}) %>
+				</div>
+			<% end %>
+		<% else %>
+			<div class="text-center">
+				<p class="no-pic-message"><%= "Sorry, #{@user.username.titleize} doesn't have any #{@type.singularize} pictures" %></p>
+			</div>
+		<% end %>
+	</div>
 </div>
 	  

@@ -16,16 +16,17 @@ class PicturesController < ApplicationController
 		@picture = current_picture
 		results = JSON.parse(cookies[:results]) || []
 		index = params[:index].to_i || 0
-		
-		if index >= results.length - 1
-			@pictures = get_pictures(20)
-			@pictures = @pictures.not_in(id: results)
+		unless params[:type] == "favorites"
+			if index >= results.length - 1
+				@pictures = get_pictures(20)
+				@pictures = @pictures.not_in(id: results)
 
-			@pictures.each do |pic|
-				results << pic.id.to_s
+				@pictures.each do |pic|
+					results << pic.id.to_s
+				end
+
+				cookies[:results] = JSON.generate(results)
 			end
-
-			cookies[:results] = JSON.generate(results)
 		end
 		@prev_index = index == 0 ? 0 : index - 1
 		@next_index = index >= results.length - 1 ? index : index + 1

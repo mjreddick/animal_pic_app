@@ -8,10 +8,14 @@ class UsersController < ApplicationController
 		pics = @user.pictures.where(is_active: true).desc(:created_at)
 		friend_pics = pics.where(is_friend: true)
 		fiend_pics = pics.where(is_friend: false)
+		fav_pics = Picture.in(id: @user.favorites).where(is_active: true)
+		
 		if @type == "friends"
 			@pictures = friend_pics
-		else
+		elsif @type == "fiends"
 			@pictures = fiend_pics
+		else
+			@pictures = fav_pics
 		end
 		results = []
 		@pictures.each do |pic|
@@ -19,16 +23,17 @@ class UsersController < ApplicationController
 		end
 		cookies[:results] = JSON.generate(results)
 		
-		friend_total = 0
-		vote_total = 0
+		@friend_total = 0
+		@vote_total = 0
+		@num_pics = pics.length
 		pics.each do |pic|
-			friend_total += pic.friended_by.length
-			vote_total += pic.total_votes
+			@friend_total += pic.friended_by.length
+			@vote_total += pic.total_votes
 		end
-		if vote_total == 0
+		if @vote_total == 0
 			@friend_percentage = 50
 		else
-			@friend_percentage = ((friend_total.to_f / vote_total.to_f) * 100).floor
+			@friend_percentage = ((@friend_total.to_f / @vote_total.to_f) * 100).floor
 		end
 
 	end
