@@ -42,7 +42,7 @@
 	<div class="row">
 		<% if !@pictures.empty? %>
 			<% @pictures.each_with_index do |picture, index| %>
-				<div class="col-md-3 col-xs-6 text-center">
+				<div class="col-xs-6 col-sm-4 col-md-3 text-center">
 					<%= link_to image_tag(picture.image.url(:thumb), size: "160x160", class: "pic-thumb"), picture_path(picture, {type: @type, sort: "newest", index: index, user_id: @user.id.to_s}) %>
 				</div>
 			<% end %>
