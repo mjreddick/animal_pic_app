@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 		friend_pics = pics.where(is_friend: true)
 		fiend_pics = pics.where(is_friend: false)
 		fav_pics = Picture.in(id: @user.favorites).where(is_active: true)
-		
+
 		if @type == "friends"
 			@pictures = friend_pics
 		elsif @type == "fiends"
@@ -81,11 +81,11 @@ class UsersController < ApplicationController
 	private
 
 		def user_params
-			params.require(:user).permit(:username, :pet_name, :email, :password, :password_confirmation, :image)
+			params.require(:user).permit(:username, :pet_name, :email, :password, :password_confirmation, :image, :about)
 		end
 
 		def user_edit_params
-			params.require(:user).permit(:pet_name,:email)
+			params.require(:user).permit(:pet_name, :email, :about)
 		end
 
 		def viewed_user
